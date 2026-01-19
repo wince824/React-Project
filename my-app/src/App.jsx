@@ -28,8 +28,7 @@ export default function App() {
     setError(null)
 
     try {
-      // For PlayCode: Add your API key directly here
-      // For production: Use environment variables (process.env.REACT_APP_GEMINI_API_KEY)
+     
       const GEMINI_API_KEY = 'AIzaSyAaitFnIuiRbEjr7EcmMq9Ieg5LQJzAs2I'
       
       if (!GEMINI_API_KEY) {
@@ -37,7 +36,7 @@ export default function App() {
       }
 
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
+        'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY',
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -45,11 +44,7 @@ export default function App() {
             contents: [{
               parts: [{
                 text: `Recommend 6 ${genre} books for a ${level} reader feeling ${mood}. For each book, provide:
-1. Title and Author
-2. Brief description (2-3 sentences)
-3. Why it matches the mood
-
-Format each book clearly with numbers.`
+`
               }]
             }]
           })
@@ -62,9 +57,9 @@ Format each book clearly with numbers.`
       }
 
       const data = await response.json()
-      console.log('API Response:', data) // Debug log
+      console.log('API Response:', data) 
       
-      // Check if we have the expected structure
+      
       if (data.candidates && Array.isArray(data.candidates) && data.candidates.length > 0) {
         const candidateContent = data.candidates[0]?.content
         const partsArray = candidateContent?.parts
